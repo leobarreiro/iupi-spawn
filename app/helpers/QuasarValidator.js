@@ -21,7 +21,6 @@ module.exports = class QuasarValidator {
 	}
 
 	hasErrors = function() {
-		console.log(this.errors);
 		return this.errors.length > 0;
 	}
 
