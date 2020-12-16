@@ -5,8 +5,24 @@ module.exports = class QuasarValidator {
 		this.errors = [];
 	}
 
-	isValidGroupId = function(value) {
+	isValidPort = function(value) {
+		var pattern = /^[0-9]{4}$/g;
+		this.validateAgainstPattern("port", value, pattern, "must contain only numbers, using the format [nnnn]");
+	}
 
+	isValidContainer = function(value) {
+		var pattern = /^(tomcat|undertow|jetty)$/g;
+		this.validateAgainstPattern("container", value, pattern, "must be under a valid option [undertow, tomcat, jetty]");
+	}
+
+	isValidVersion = function(value) {
+		var pattern = /^[0-9]{1,}[\.]{1}[0-9]{1,}[\.]{1}[0-9]{1,}$/g;
+		this.validateAgainstPattern("version", value, pattern, "must be on semantic versioning format (semver.org) => n.n.n");
+	}
+
+	isValidGroupId = function(value) {
+		var pattern = /^[a-z]{2,}[\.]{1}([a-z]{2,}[\.]{1}){1,}[a-z]{1,}$/g;
+		this.validateAgainstPattern("groupId", value, pattern, "must contain only lowercase letters (from a to z) and dots.");
 	}
 
 	isValidArtifactId = function(value) {

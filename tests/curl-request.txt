@@ -1,0 +1,9 @@
+curl --location --request POST 'http://127.0.0.1:3000/configure' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "groupId": "br.com.testing.api", 
+    "artifactId": "artefacto", 
+    "version": "0.1.0", 
+    "container": "undertow", 
+    "port": "8080"
+}'
