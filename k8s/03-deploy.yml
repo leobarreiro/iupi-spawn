@@ -16,8 +16,11 @@ spec:
       imagePullSecrets:
       - name: registry-pull
       containers:
-      - image: registry.quasarbot.com/quasar-spawn:0.1.0
-        name: quasar-spawn
+      - name: quasar-spawn
+        image: registry.quasarbot.com/quasar/quasar-spawn:0.2.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
         env:
           - name: ENV
             value: production
@@ -30,16 +33,12 @@ spec:
           requests:
             cpu: 100m
             memory: 192Mi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: quasar-spawn
-  namespace: quasar
-spec:
-  type: NodePort
-  selector:
-    app: quasar-spawn
-  ports:
-    - port: 3000
-      targetPort: 3000
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: region
+                operator: In
+                values:
+                - st-louis-01

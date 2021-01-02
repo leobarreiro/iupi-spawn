@@ -1,0 +1,14 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: quasar-spawn-ingress
+  namespace: quasar
+spec:
+  rules:
+  - host: spawn.quasarbot.com
+    http:
+      paths:
+        - backend:
+            serviceName: quasar-spawn
+            servicePort: 80
