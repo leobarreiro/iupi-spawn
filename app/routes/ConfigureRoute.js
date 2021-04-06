@@ -1,4 +1,4 @@
-const QuasarValidator = require("../helpers/QuasarValidator");
+let ApiConf = require("../requests/ApiConf");
 
 module.exports = class ConfigureRoute {
 	
@@ -8,16 +8,12 @@ module.exports = class ConfigureRoute {
 
 	configure = function() {
 		this.app.post('/configure', (req, res) => {
-			var validator = new QuasarValidator();
-			validator.isValidArtifactId(req.body.artifactId);
-			validator.isValidGroupId(req.body.groupId);
-			validator.isValidVersion(req.body.version);
-			validator.isValidContainer(req.body.container);
-			validator.isValidPort(req.body.port);
-			if (validator.hasErrors()) {
-				res.status(400).send(validator.errors);
-			} else {
+			var apiConf = new ApiConf(req.body);
+			console.log(apiConf);
+			if (apiConf.isValid()) {
 				res.sendStatus(200);
+			} else {
+				res.status(400).send(apiConf.validator.errors);
 			}
 		});
 	}
