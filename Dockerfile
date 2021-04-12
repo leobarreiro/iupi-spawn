@@ -7,18 +7,18 @@ ARG PORT=3000
 ENV PORT $PORT
 EXPOSE $PORT 9229 9230
 
-RUN npm install -g nodemon && mkdir /opt/node_app && chown node:node /opt/node_app
-WORKDIR /opt/node_app
+RUN npm install nodemon -g
+RUN mkdir /app
+WORKDIR /app
 
-USER node
+USER root
 COPY package.json ./
-RUN npm install --no-optional && npm cache clean --force
+RUN npm install --silent 
 
 # check every 30s to ensure this service returns HTTP 200
 # HEALTHCHECK --interval=30s CMD node healthcheck.js
 
-WORKDIR /opt/node_app/app
-COPY . .
+COPY ./app .
 
 # COPY docker-entrypoint.sh /usr/local/bin/
 # ENTRYPOINT ["docker-entrypoint.sh"]

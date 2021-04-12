@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spawn-ing
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    cert-manager.io/cluster-issuer: letsencrypt-issuer
+spec:
+  tls:
+  - hosts:
+    - spawn.iupi.io
+    secretName: spawn-tls
+  rules:
+  - host: spawn.iupi.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: spawn
+            port:
+              number: 80

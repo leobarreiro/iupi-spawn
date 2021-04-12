@@ -1,32 +1,42 @@
-const Keycloak = require('keycloak-connect');
-const session = require('express-session');
 const express = require('express');
 const cors = require('cors');
-const app = express();
+var app = express();
+var session = require('express-session');
+const keycloak = require('./config/keycloak-config').initKeycloak();
+var configController = require('./controllers/configure-controller');
+const { Session } = require('express-session');
 const PORT = process.env.PORT || 3000;
-var ConfigureRoute = require("./routes/ConfigureRoute");
 
-var memoryStore = new session.MemoryStore();
-var keycloak = new Keycloak({ store: memoryStore });
-
-app.use(session({
-    secret: 'myLongSecret', 
-    store: memoryStore,
+const memoryStore = new session.MemoryStore();
+const mySession = session({
+    secret: 'iupi-spawn-secret',
     resave: false,
     saveUninitialized: true,
-    name: 'NameOfMyApp'
-}));
+    store: memoryStore
+});
+
+app.use(mySession);
 
 app.use(keycloak.middleware());
-
 app.use(cors());
-app.use(keycloak.mi)
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.raw());
 
-var route = new ConfigureRoute(app);
-route.configure();
+app.use('/java', configController);
+app.get('/', function(req, res) {
+    res.send("Server is up!");
+});
+
+app.use(function(req, res, next) {
+    res.end = function(body) {
+      if (res.statusCode === 500) {
+        next(body);
+      } else {
+        res.send(body);
+      }
+    }
+  });
 
 app.listen(PORT, function(){
     console.log('Listening at port ' + PORT);

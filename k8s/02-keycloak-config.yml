@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spawn-keycloak-cm
+data:
+  keycloak.json: |-
+    {
+        "clientId": "spawn",
+        "bearerOnly": true,
+        "serverUrl": "https://auth.iupi.io/auth/",
+        "realm": "iupi",
+        "credentials": {
+            "secret": "e7c060bc-a667-48f5-a5f9-e1f916982cc3"
+        }
+    }
