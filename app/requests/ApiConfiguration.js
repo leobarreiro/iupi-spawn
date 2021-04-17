@@ -10,8 +10,10 @@ class ApiConfiguration {
         this.container = jsonObject.container;
         this.port = jsonObject.port;
         this.database = jsonObject.database;
+        this.jpa = (this.database != null);
         this.nosql = jsonObject.nosql;
         this.amqp = jsonObject.amqp;
+        this.cloud = (this.amqp != null);
         this.cache = jsonObject.cache;
         this.openapi = jsonObject.openapi;
         this.devtools = jsonObject.devtools;

@@ -6,7 +6,7 @@ class KeycloakConfiguration {
         this.genericValidator = new GenericValidator;
         this.errors = [];
         if (jsonObj) {
-            this.useKeycloak = true;
+            this.usekeycloak = true;
             this.realm = jsonObj.realm;
             this.url = jsonObj.url;
             this.clientid = jsonObj.clientid;
@@ -17,7 +17,7 @@ class KeycloakConfiguration {
     }
 
     validate() {
-        if (this.useKeycloak === false || (this.realm != null && this.url != null && this.clientid != null && this.clientsecret != null)) {
+        if (this.usekeycloak === false || (this.realm != null && this.url != null && this.clientid != null && this.clientsecret != null)) {
             console.log("keycloak is valid");
             return null;
         } else {

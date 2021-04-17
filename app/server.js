@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 var app = express();
 var session = require('express-session');
-const keycloak = require('./config/keycloak-config').initKeycloak();
-var configController = require('./controllers/configure-controller');
+const keycloak = require('./security/KeycloakProtect').initKeycloak();
+var javaController = require('./controllers/GeneratorController');
 const { Session } = require('express-session');
 const PORT = process.env.PORT || 3000;
 
@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.raw());
 
-app.use('/java', configController);
+app.use('/java', javaController);
 app.get('/', function(req, res) {
     res.send("Server is up!");
 });

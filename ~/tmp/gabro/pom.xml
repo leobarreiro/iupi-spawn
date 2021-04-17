@@ -9,10 +9,10 @@
 		<version>2.3.5.RELEASE</version>
 		<relativePath />
 	</parent>
-	<groupId><%=groupId%></groupId>
-	<artifactId><%=artifactId%></artifactId>
-	<name><%= artifactId%></name>
-	<version><%=version%></version>
+	<groupId>br.com.fabianita.api</groupId>
+	<artifactId>gabro</artifactId>
+	<name>gabro</name>
+	<version>0.1.0</version>
 	<packaging>jar</packaging>
 	<properties>
 		<java.version>11</java.version>
@@ -26,31 +26,22 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId><% if (container != 'tomcat') { %>
+			<artifactId>spring-boot-starter-web</artifactId>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-tomcat</artifactId>
 				</exclusion>
-			</exclusions><% } %>
-		</dependency><% if (container != 'tomcat') { %>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-<%= container %></artifactId>
-		</dependency><% } if (devtools) { %>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency><% } if (keycloak.usekeycloak) { %>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-spring-boot-starter</artifactId>
-		</dependency><% } if (cache == 'redis') { %>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency><% } if (openapi) { %>
+		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -60,43 +51,23 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>${springfox.version}</version>
-		</dependency><% } if (actuator) { %>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency><% } if (jpa) { %>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency><% } if (database == 'postgres') { %>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency><% } if (database == 'oracle') {%>
-		<dependency>
-			<groupId>com.oracle.database.jdbc</groupId>
-			<artifactId>ojdbc10</artifactId>
-		</dependency><% } if (nosql == 'mongo') { %>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency><% } if (cloud) { %>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
-		</dependency><% } if (amqp == 'rabbit') { %>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-		</dependency><% } if (amqp == 'kafka') { %>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-stream-kafka</artifactId>
-		</dependency><% } if (amqp == 'mqtt') { %>
-		<dependency>
-			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-mqtt</artifactId>
-		</dependency><% } %>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
@@ -116,14 +87,14 @@
 				<version>${spring.cloud-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency><% if (keycloak.usekeycloak) {%>
+			</dependency>
 			<dependency>
 				<groupId>org.keycloak.bom</groupId>
 				<artifactId>keycloak-adapter-bom</artifactId>
 				<version>12.0.3</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency><% } %>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>
