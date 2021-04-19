@@ -1,25 +1,5 @@
 {
-    "templates": {
-        "root": "/opt/generator/templates", 
-        "javaMain": "src/main/java",
-        "resourceMain": "src/main/resources",
-        "testMain": "src/tests"
-    },
-    "dirs": {
-        "root": "/opt/generator/<%=oauthuser%>/<%=artifactId%>",
-        "javaMain": "<%=root%>/src/main/java",
-        "resourceMain": "<%=root%>/src/main/resources",
-        "packageMain": "<%=javaMain%>/<%=dirgroupid%>",
-        "testMain": "<%=root%>/src/tests",
-        "model": "<%=packageMain%>/model",
-        "repository": "<%=packageMain%>/repository",
-        "service": "<%=packageMain%>/service",
-        "controller": "<%=packageMain%>/controller"
-    },
-    "packages": {
-        "model": "<%=groupid%>.<%=artifactid%>.model",
-        "repository": "<%=groupid%>.<%=artifactid%>.repository",
-        "service": "<%=groupid%>.<%=artifactid%>.service", 
-        "controller": "<%=groupid%>.<%=artifactid%>.controller"
-    }
+    "templateBasePath": "/opt/spawn/templates/springboot",
+    "msGenerateBaseDir": "/opt/spawn/generated",
+    "downloads": "/opt/spawn/downloads"
 }

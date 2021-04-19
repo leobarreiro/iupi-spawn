@@ -1,47 +1,68 @@
 let pathConf = require("../config/path.json");
 
 class PathsHelper {
-
+    
     constructor(oauthuser, config) {
-
-        this._oauthuser = oauthuser;
-        this._config = config;
-
+        
+        var absoluteMsPath = pathConf.msGenerateBaseDir + "/" + oauthuser + "/" + config.artifactId;
+        var absoluteTemplatePath = pathConf.templateBasePath;
+        
+        this.download = {
+            path: pathConf.downloads + "/" + oauthuser + "/",
+            fileName: config.artifactId + ".zip"
+        };
+        //this.downloadFile = pathConf.downloads + "/" + oauthuser + "/" + config.artifactId + ".zip";
+        
         this.templates = {
-            root: "/opt/templates", 
-            javaMain: "src/main/java",
-            resourceMain: "src/main/resources",
-            testMain: "src/tests"
+            root:           absoluteTemplatePath,
+            docker:         absoluteTemplatePath + "/src/docker",
+            k8s:            absoluteTemplatePath + "/src/k8s",
+            javaMain:       absoluteTemplatePath + "/src/main/java",
+            resourceMain:   absoluteTemplatePath + "/src/main/resources",
+            testMain:       absoluteTemplatePath + "/src/tests",
+            appMain:        absoluteTemplatePath + "/src/main/java/io/iupi/api", 
+            config:         absoluteTemplatePath + "/src/main/java/io/iupi/api/config",
+            model:          absoluteTemplatePath + "/src/main/java/io/iupi/api/model",
+            repository:     absoluteTemplatePath + "/src/main/java/io/iupi/api/repository",
+            amqp:           absoluteTemplatePath + "/src/main/java/io/iupi/api/amqp",
+            service:        absoluteTemplatePath + "/src/main/java/io/iupi/api/service",
+            controller:     absoluteTemplatePath + "/src/main/java/io/iupi/api/controller"
         };
 
         this.dirs = {
-            root: "/opt/generated/" + oauthuser + "/" + config.artifactId,
-            javaMain: "src/main/java",
-            resourceMain: "src/main/resources",
-            appMain: this._dirMain(),
-            testMain: this._dirMain() + "/src/tests",
-            model: "model",
-            repository: "repository",
-            service: "service",
-            controller: "controller"
+            root:           absoluteMsPath,
+            docker:         absoluteMsPath + "/src/docker",
+            k8s:            absoluteMsPath + "/src/k8s",
+            javaMain:       absoluteMsPath + "/src/main/java",
+            resourceMain:   absoluteMsPath + "/src/main/resources",
+            testMain:       absoluteMsPath + "/src/tests",
+            appMain:        absoluteMsPath + "/src/main/java/" + this._dirMainPackage(config), 
+            config:         absoluteMsPath + "/src/main/java/" + this._dirMainPackage(config) + "/config",
+            model:          absoluteMsPath + "/src/main/java/" + this._dirMainPackage(config) + "/model",
+            repository:     absoluteMsPath + "/src/main/java/" + this._dirMainPackage(config) + "/repository",
+            amqp:           absoluteMsPath + "/src/main/java/" + this._dirMainPackage(config) + "/amqp",
+            service:        absoluteMsPath + "/src/main/java/" + this._dirMainPackage(config) + "/service",
+            controller:     absoluteMsPath + "/src/main/java/" + this._dirMainPackage(config) + "/controller"
         };
 
         this.packages = {
-            appMain: this._packageMain(),
-            model: this._packageMain() + ".model",
-            repository: this._packageMain() + ".repository",
-            service: this._packageMain() + ".service",
-            controller: this._packageMain() + ".controller"
+            appMain:        this._packageMain(config),
+            config:         this._packageMain(config) + ".config",
+            model:          this._packageMain(config) + ".model",
+            repository:     this._packageMain(config) + ".repository",
+            amqp:           this._packageMain(config) + ".amqp",
+            service:        this._packageMain(config) + ".service",
+            controller:     this._packageMain(config) + ".controller"
         };
 
     }
 
-    _dirMain() {
-        return this._config.groupId.split(".").join("/") + "/" + this._config.artifactId;
+    _dirMainPackage(config) {
+        return config.groupId.split(".").join("/") + "/" + config.artifactId;
     }
 
-    _packageMain() {
-        return this._config.groupId + "." + this._config.artifactId;
+    _packageMain(config) {
+        return config.groupId + "." + config.artifactId;
     }
 
 }

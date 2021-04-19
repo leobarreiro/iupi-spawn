@@ -1,8 +1,0 @@
-logging:
-  level:
-    root: INFO
-spring:
-  application:
-    name: <%=artifact%>
-  banner:
-    location: classpath:quasar/bann.txt

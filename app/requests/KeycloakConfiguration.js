@@ -2,15 +2,14 @@ const GenericValidator = require("../helpers/GenericValidator");
 
 class KeycloakConfiguration {
 
-    constructor(jsonObj) {
+    constructor(json) {
         this.genericValidator = new GenericValidator;
-        this.errors = [];
-        if (jsonObj) {
+        if (json) {
             this.usekeycloak = true;
-            this.realm = jsonObj.realm;
-            this.url = jsonObj.url;
-            this.clientid = jsonObj.clientid;
-            this.clientsecret = jsonObj.clientsecret;
+            this.realm = json.realm;
+            this.url = json.url;
+            this.clientid = json.clientid;
+            this.clientsecret = json.clientsecret;
         } else {
             this.useKeycloak = false;
         }
@@ -18,10 +17,8 @@ class KeycloakConfiguration {
 
     validate() {
         if (this.usekeycloak === false || (this.realm != null && this.url != null && this.clientid != null && this.clientsecret != null)) {
-            console.log("keycloak is valid");
             return null;
         } else {
-            console.log("keycloak is not valid");
             return { field: "keycloak", valid: false, message: "Please review your keycloak configuration" };
         }
     }
