@@ -24,6 +24,7 @@ spec:
     spec:
       imagePullSecrets:
       - name: {{ .Values.registry.secretName }}
+      terminationGracePeriodSeconds: 10
       containers:
       - image: {{ .Values.image.name }}:{{ .Values.image.version }}
         imagePullPolicy: "Always"
@@ -35,3 +36,29 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
+          volumeMounts:
+            - name: generated
+              mountPath: /generated
+            - name: downloads
+              mountPath: /downloads
+  volumeClaimTemplates:
+  - metadata:
+      name: generated
+      annotations:
+        volume.alpha.kubernetes.io/storage-class: default
+    spec:
+      accessModes: [ ReadWriteOnce ]
+      storageClassName: default
+      resources:
+        requests:
+          storage: 4Gb
+  - metadata:
+      name: downloads
+      annotations:
+        volume.alpha.kubernetes.io/storage-class: default
+    spec:
+      accessModes: [ ReadWriteOnce ]
+      storageClassName: default
+      resources:
+        requests:
+          storage: 4Gb
