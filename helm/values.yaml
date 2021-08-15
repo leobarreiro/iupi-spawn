@@ -1,0 +1,30 @@
+# Classificacao da instalacao do arlepton-generator
+# usada para organizar os recursos no cluster
+app:
+  # Nome da instalacao
+  name: arlepton-generator
+  # Grupo da instalacao
+  group: arlepton
+
+# Imagem docker do helm server
+image:
+  name: arphoenix.azurecr.io/arlepton/arlepton-generator
+  version: 0.1.0
+
+# Configuracoes para Secret de registry-pull
+registry:
+  createSecret: true
+  secretName: registry-pull
+  host: arphoenix.azurecr.io
+  user: arphoenix
+  pwd: password-here
+
+# Configuracoes para ingress
+ingress:
+  create: true
+  # DNS para o ingress
+  host: app.arlepton.com
+  # Nome da secret TLS para o dominio
+  tlsSecret: app-arlepton-cert
+  # path para o helm server dentro do ingress
+  path: generator

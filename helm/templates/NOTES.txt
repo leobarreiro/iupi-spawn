@@ -1,0 +1,10 @@
+-
+
+Generator Server do ARLepton foi instalado corretamente!
+
+Revise a instalação no cluster com o comando abaixo:
+
+  kubectl -n {{ .Release.Namespace }} get pod,deploy,svc,secret,ing -l app={{ .Values.app.name }}
+
+
+-
