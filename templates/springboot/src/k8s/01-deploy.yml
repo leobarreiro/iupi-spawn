@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <%=artifactId%>
+  labels:
+    app: <%=artifactId%>
+    stack: spawn
+spec:
+  selector:
+    matchLabels:
+      app: <%=artifactId%>
+  template:
+    metadata:
+      labels:
+        app: <%=artifactId%>
+    spec:
+      imagePullSecrets:
+      - name: registry-pull
+      containers:
+      - image: <%=k8s.dockerRegistry%>/<%=k8s.dockerNamespace%>/<%=artifactId%>:<%=version%>
+        imagePullPolicy: "IfNotPresent"
+        name: <%=artifactId%>
+        ports:
+         - containerPort: <%=port%>
+         - containerPort: 9090
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+

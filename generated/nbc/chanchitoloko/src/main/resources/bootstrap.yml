@@ -1,0 +1,8 @@
+logging:
+  level:
+    root: INFO
+spring:
+  application:
+    name: chanchitoloko
+  banner:
+    location: classpath:bann.txt

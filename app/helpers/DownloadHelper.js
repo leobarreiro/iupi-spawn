@@ -1,12 +1,13 @@
 let pathConf = require("../config/path.json");
+let path = require("path");
 
 class DownloadHelper {
     
     constructor(oauthuser, fileName) {
         
-        this.path = pathConf.downloads + "/" + oauthuser + "/";
+        this.path = pathConf.apiDownloadsDir + "/" + oauthuser + "/";
         this.fileName = fileName;
-        this.completePath = pathConf.downloads + "/" + oauthuser + "/" + fileName;
+        this.completePath = path.resolve(__dirname, "..", "..", pathConf.apiDownloadsDir, oauthuser, fileName);
         this.message = "";
         this.error = false;
     }

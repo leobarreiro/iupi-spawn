@@ -1,0 +1,648 @@
+{
+	"info": {
+		"name": "<%=appTitle%>",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+	<% if (keycloak) {%>
+		{
+			"name": "keycloak -endpoints",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "<%=kcUrl%>/auth/realms/<%=kcRealm%>/.well-known/openid-configuration",
+					"protocol": "<%=kcUrlProtocol%>",
+					"host": ["<%=kcUrlPostmanHost%>"], 
+					"port": "<%=kcPortPostman%>", 
+					"path": [
+						"auth",
+						"realms",
+						"<%=kcRealm%>",
+						".well-known",
+						"openid-configuration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "keycloak - token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "<%=kcClientId%>",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "<%=kcClientSecret%>",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "type-your-username-here",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "type-your-password-here",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "openid",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": {
+					"raw": "<%=kcUrl%>/auth/realms/<%=kcRealm%>/protocol/openid-connect/token",
+					"protocol": "<%=kcUrlProtocol%>", 
+					"host": ["<%=kcUrlPostmanHost%>"], 
+					"port": "<%=kcPortPostman%>", 
+					"path": [
+						"auth",
+						"realms",
+						"<%=kcRealm%>",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "keycloak - refresh token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "<%=kcClientId%>",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "<%=kcClientSecret%>",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "[use-refresh-token-here]",
+							"type": "text"
+						},
+						{
+							"key": "response_type\n",
+							"value": "id_token",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "scope",
+							"value": "openid",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": {
+					"raw": "<%=kcUrl%>/auth/realms/<%=kcRealm%>/protocol/openid-connect/token",
+					"protocol": "<%=kcUrlProtocol%>",
+					"host": ["<%=kcUrlPostmanHost%>"], 
+					"port": "<%=kcPortPostman%>", 
+					"path": [
+						"auth",
+						"realms",
+						"<%=kcRealm%>",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "keycloak - userinfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "[use-access-token-here]",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "<%=kcClientId%>",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "<%=kcClientSecret%>",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": {
+					"raw": "<%=kcUrl%>/auth/realms/<%=kcRealm%>/protocol/openid-connect/userinfo",
+					"protocol": "<%=kcUrlProtocol%>", 
+					"host": ["<%=kcUrlPostmanHost%>"], 
+					"port": "<%=kcPortPostman%>", 
+					"path": [
+						"auth",
+						"realms",
+						"<%=kcRealm%>",
+						"protocol",
+						"openid-connect",
+						"userinfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "keycloak - logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "[use-access-token-here]",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "<%=kcUrl%>/auth/realms/<%=kcRealm%>/protocol/openid-connect/logout",
+					"protocol": "<%=kcUrlProtocol%>", 
+					"host": ["<%=kcUrlPostmanHost%>"], 
+					"port": "<%=kcPortPostman%>", 
+					"path": [
+						"auth",
+						"realms",
+						"<%=kcRealm%>",
+						"protocol",
+						"openid-connect",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},<%}%>
+		{
+			"name": "basic - hello",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/hello",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "basic - date-now",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/date-now",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"date-now"
+					]
+				}
+			},
+			"response": []
+		}<% if (mqtt) { %>,
+		{
+			"name": "message - mqtt/send",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"<%=randomName%>\", \n\t\"surname\": \"<%=randomSurname%>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/mqtt/send",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"mqtt",
+						"send"
+					]
+				}
+			},
+			"response": []
+		}<% } if (rabbit) { %>,
+		{
+			"name": "message - rabbit/send",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"<%=randomName%>\", \n\t\"surname\": \"<%=randomSurname%>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/rabbit/send",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"rabbit",
+						"send"
+					]
+				}
+			},
+			"response": []
+		}<% } if (kafka) { %>,
+		{
+			"name": "message - kafka/send",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"<%=randomName%>\", \n\t\"surname\": \"<%=randomSurname%>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/kafka/send",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"kafka",
+						"send"
+					]
+				}
+			},
+			"response": []
+		}<% } if (mongo) { %>,
+		{
+			"name": "mongo - person/new",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"<%=randomName%>\", \n\t\"surname\": \"<%=randomSurname%>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/person/new",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"person",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mongo - person/surname",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/person/surname/<%=randomSurname%>",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"person",
+						"surname",
+						"<%=randomSurname%>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mongo - person/remove",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/person/remove/{type-the-id-here}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"person",
+						"remove",
+						"{type-the-id-here}"
+					]
+				}
+			},
+			"response": []
+		}<% } if (jpa) { %>,
+		{
+			"name": "database - registry/save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"description\": \"Including a new registry\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/registry/save",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"registry",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "database - registry/update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1, \n\t\"description\": \"Saving a registry not so new\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/registry/update",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"registry",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "database - registry/list-all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/registry/list-all",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"registry",
+						"list-all"
+					]
+				},
+				"description": "List all the records from the database."
+			},
+			"response": []
+		},
+		{
+			"name": "database - registry/remove",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:<%=portNumber%>/<%=artifact%>/registry/remove/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "<%=portNumber%>",
+					"path": [
+						"<%=artifact%>",
+						"registry",
+						"remove",
+						"1"
+					]
+				},
+				"description": "Delete a record from database."
+			},
+			"response": []
+		}<% } %>
+	],
+	"protocolProfileBehavior": {}
+}

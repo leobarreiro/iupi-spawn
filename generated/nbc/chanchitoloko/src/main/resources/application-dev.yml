@@ -1,0 +1,93 @@
+logging:
+  level:
+    io.gb3.api.chanchitoloko: DEBUG
+    org.springframework.boot.context: DEBUG
+server:
+  compression:
+    enabled: true
+  port: 8080
+  servlet: 
+    context-path: /chanchitoloko
+springfox:
+  documentation:
+    swagger.v2.path: /v2/api-docs
+    info:
+      title: 
+      description: chanchitoloko Docs.
+      version: 1.0
+    base-package: io.gb3.api.chanchitoloko
+spring:
+  messages:
+    basename: i18n/messages
+  cache:
+    type: redis
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: chanchitoloko
+      authenticationDatabase: chanchitoloko
+      username: chanchitoloko
+      password: chanchitoloko@123
+  redis:
+    host: localhost
+    port: 6379
+  datasource:
+    platform: postgresql
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: chanchitoloko@123
+    continue-on-error: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: chanchitoloko
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  cloud:
+    stream:
+      defaultBinder: business
+      binders:
+        business:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      autoAddPartitions: true
+                      brokers: 127.0.0.1:9092
+                      zkNodes: 127.0.0.1:2181
+      bindings:
+        chanchitoloko_output:
+          destination: chanchitoloko-output
+          contentType: application/json
+          producer:
+            headerMode: none
+        chanchitoloko_input:
+          destination: chanchitoloko-input
+          contentType: application/json
+          consumer:
+            maxAttempts: 3
+            headerMode: none
+keycloak:
+  realm: iupi
+  auth-server-url: https://auth.iupi.io
+  ssl-required: external
+  resource: spawn
+  bearer-only: true
+  credentials:
+    secret: ononononono 
+  security-constraints:
+  - auth-roles:
+    - devops
+    security-collections:
+    - name: 
+      patterns:
+      - /* 
+

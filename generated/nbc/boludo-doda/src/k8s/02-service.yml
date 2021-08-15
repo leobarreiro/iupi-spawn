@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: boludo-doda-svc
+  labels:
+    app: boludo-doda
+    stack: spawn
+spec:
+  type: ClusterIP
+  selector:
+    app: boludo-doda
+  ports:
+    - port: 80
+      targetPort: 8080

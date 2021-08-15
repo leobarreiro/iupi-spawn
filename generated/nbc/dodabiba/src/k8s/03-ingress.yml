@@ -1,0 +1,20 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dodabiba-ing
+  labels:
+    app: dodabiba
+    stack: spawn
+spec:
+  rules:
+  - host: zoco.iupi.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dodabiba-svc
+            port: 
+              number: 80

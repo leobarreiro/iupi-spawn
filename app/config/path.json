@@ -1,5 +1,5 @@
 {
-    "templateBasePath": "/opt/spawn/templates/springboot",
-    "msGenerateBaseDir": "/opt/spawn/generated",
-    "downloads": "/opt/spawn/downloads"
+    "springbootTemplatesDir": "templates/springboot",
+    "apiGeneratedDir": "generated",
+    "apiDownloadsDir": "downloads"
 }

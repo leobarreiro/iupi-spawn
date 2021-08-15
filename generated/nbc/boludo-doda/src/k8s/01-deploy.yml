@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boludo-doda
+  labels:
+    app: boludo-doda
+    stack: spawn
+spec:
+  selector:
+    matchLabels:
+      app: boludo-doda
+  template:
+    metadata:
+      labels:
+        app: boludo-doda
+    spec:
+      imagePullSecrets:
+      - name: registry-pull
+      containers:
+      - image: registry.iupi.io/zoco/boludo-doda:0.1.0
+        imagePullPolicy: "IfNotPresent"
+        name: boludo-doda
+        ports:
+         - containerPort: 8080
+         - containerPort: 9090
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+

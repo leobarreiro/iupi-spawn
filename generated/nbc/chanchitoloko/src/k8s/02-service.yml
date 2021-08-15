@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chanchitoloko-svc
+  labels:
+    app: chanchitoloko
+    stack: spawn
+spec:
+  type: ClusterIP
+  selector:
+    app: chanchitoloko
+  ports:
+    - port: 80
+      targetPort: 8080

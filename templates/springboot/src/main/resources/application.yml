@@ -1,0 +1,124 @@
+logging:
+  level:
+    <%=paths.packages.appMain%>: DEBUG
+    org.springframework.boot.context: DEBUG
+server:
+  compression:
+    enabled: true
+  port: <%=port%>
+  servlet: 
+    context-path: /<%=artifactId%><% if (openapi) { %>
+springfox:
+  documentation:
+    swagger.v2.path: /v2/api-docs
+    info:
+      title: 
+      description: <%=artifactId%> Docs.
+      version: 1.0
+    base-package: <%=paths.packages.appMain%><% } %><% if (actuator) { %>
+management:
+  server:
+    port: 9090
+  endpoints:
+    web:
+      exposure:
+        include: '*'<% } %>
+spring:
+  messages:
+    basename: i18n/messages<% if (cache && cache == 'redis') { %>
+  cache:
+    type: redis<% } if (nosql && nosql == 'mongo') { %>
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: <%=artifactId%>
+      authenticationDatabase: <%=artifactId%>
+      username: <%=artifactId%>
+      password: <%=artifactId%>@123<% } if (cache && cache == 'redis') { %>
+  redis:
+    host: localhost
+    port: 6379<% } if (database == 'postgres') { %>
+  datasource:
+    platform: postgresql
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: <%=artifactId%>@123
+    continue-on-error: true<% } if (database == 'oracle') {%>
+  datasource:
+    platform: oracle
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: system
+    password: oracle
+    continue-on-error: true<% } if (jpa) { %>
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: <%=artifactId%>
+    database-platform: org.hibernate.dialect.<%=databaseDialect%>
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true<% } if (amqp == 'rabbit') { %>
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: <%=artifactId%>
+    password: <%=artifactId%>@123
+    virtual-host: /
+    connection-timeout: 9000<% } if (cloud) { %>
+  cloud:
+    stream:<% if (amqp == 'kafka') { %>
+      defaultBinder: business
+      binders:
+        business:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      autoAddPartitions: true
+                      brokers: 127.0.0.1:9092
+                      zkNodes: 127.0.0.1:2181<% } %>
+      bindings:
+        <%=artifactId%>_output:
+          destination: <%=artifactId%>-output
+          contentType: application/json
+          producer:
+            headerMode: none
+        <%=artifactId%>_input:
+          destination: <%=artifactId%>-input
+          contentType: application/json
+          consumer:
+            maxAttempts: 3
+            headerMode: none<% } if (amqp == 'mqtt') { %>
+<%=artifactId%>:
+  messages:
+    output-queue: <%=artifactId%>/output
+    input-queue: <%=artifactId%>/input
+  mqtt:
+    automaticReconnect: true
+    cleanSession: true
+    connectionTimeout: 10
+    clientId: <%=artifactId%>-client-mqtt
+    hostname: 127.0.0.1
+    port: 1883<% } if (keycloak.usekeycloak) { %>
+keycloak:
+  realm: <%=keycloak.realm%>
+  auth-server-url: <%=keycloak.url%>
+  ssl-required: external
+  resource: <%=keycloak.clientid%>
+  bearer-only: true
+  credentials:
+    secret: <%=keycloak.clientsecret%> 
+  security-constraints:
+  - auth-roles:
+    - devops
+    security-collections:
+    - name: 
+      patterns:
+      - /* 
+<% } %>

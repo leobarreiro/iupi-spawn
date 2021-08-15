@@ -1,14 +1,15 @@
 let pathConf = require("../config/path.json");
+let path = require("path");
 
 class PathsHelper {
     
     constructor(oauthuser, config) {
         
-        var absoluteMsPath = pathConf.msGenerateBaseDir + "/" + oauthuser + "/" + config.artifactId;
-        var absoluteTemplatePath = pathConf.templateBasePath;
+        var absoluteMsPath = path.resolve(__dirname, "..", "..", pathConf.apiGeneratedDir, oauthuser, config.artifactId);
+        var absoluteTemplatePath = pathConf.springbootTemplatesDir;
         
         this.download = {
-            path: pathConf.downloads + "/" + oauthuser + "/",
+            path: pathConf.apiDownloadsDir + "/" + oauthuser + "/",
             fileName: config.artifactId + ".zip"
         };
         //this.downloadFile = pathConf.downloads + "/" + oauthuser + "/" + config.artifactId + ".zip";

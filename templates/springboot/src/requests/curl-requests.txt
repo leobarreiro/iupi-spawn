@@ -1,0 +1,56 @@
+<% if (keycloak) {%>
+# Keycloak Auth token
+# Replace [username] and [password] in order to use this request
+
+curl -X POST '<%=kcUrl%>/realms/<%=kcRealm%>/protocol/openid-connect/token' \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+-d 'grant_type=password' \
+-d 'client_id=<%=kcClientId%>' \
+-d 'client_secret=<%=kcClientSecret%>' \
+-d 'username=[username]' \
+-d 'password=[password]' | jq '.'
+
+# Use the 'access_token' obtained by this request in 
+# your endpoints below, by adding a header like this: 
+# -H 'Authorization: Bearer [token]'
+<%}%>
+
+# Hello
+curl -X GET http://localhost:<%=portNumber%>/<%=artifact%>/hello
+
+# Date-now
+curl -X GET http://localhost:<%=portNumber%>/<%=artifact%>/date-now <% if (rabbit) { %>
+
+# RabbitMQ - Send a message
+curl -X POST -H "Content-type: application/json" -d "{\"name\": \"<%=randomName%>\", \"surname\": \"<%=randomSurname%>\"}" http://localhost:<%=portNumber%>/<%=artifact%>/rabbit/send <% } if (kafka) { %>
+
+# Kafka - Send a message
+curl -X POST -H "Content-type: application/json" -d "{\"name\": \"<%=randomName%>\", \"surname\": \"<%=randomSurname%>\"}" http://localhost:<%=portNumber%>/<%=artifact%>/kafka/send <% } if (mqtt) { %>
+
+# Mqtt - Send a message
+curl -X POST -H "Content-type: application/json" -d "{\"name\": \"<%=randomName%>\", \"surname\": \"<%=randomSurname%>\"}" http://localhost:<%=portNumber%>/<%=artifact%>/mqtt/send <% } if (jpa) {%>
+
+# Database Save
+curl -X POST -H "Content-type: application/json" http://localhost:<%=portNumber%>/<%=artifact%>/registry/save -d "{\"description\": \"Saving a new one\"}"
+
+# Database Update
+curl -X PUT -H "Content-type: application/json" http://localhost:<%=portNumber%>/<%=artifact%>/registry/update/1 -d "{\"description\": \"Updating a registry\"}"
+
+# Database List all
+curl -X GET http://localhost:<%=portNumber%>/<%=artifact%>/registry/list-all
+
+# Database Delete
+curl -X DELETE http://localhost:<%=portNumber%>/<%=artifact%>/registry/remove/1 <% } if (mongo) { %>
+
+# Mongo - List by Surname
+curl -X GET http://localhost:<%=portNumber%>/<%=artifact%>/person/surname/[surname]
+
+# Mongo - Save a new person
+curl -X POST -H "Content-type: application/json" http://localhost:<%=portNumber%>/<%=artifact%>/person/new -d "{\"name\": \"<%=randomName%>\", \"surname\": \"<%=randomSurname%>\"}"
+
+# Mongo - Update a person
+curl -X PUT -H "Content-type: application/json" http://localhost:<%=portNumber%>/<%=artifact%>/person/update -d "{\"id\": \"[uuid]\", \"name\": \"<%=randomName%>\", \"surname\": \"<%=randomSurname%>\"}"
+
+# Mongo - Delete a person
+curl -X DELETE http://localhost:<%=portNumber%>/<%=artifact%>/person/remove/[id]
+<% } %>
