@@ -1,0 +1,40 @@
+trigger:
+  tags:
+    include:
+      - '*'
+
+pool:
+  vmImage: ubuntu-latest
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+  imageRepo: 'arlepton'
+  imageName: '$(Build.Repository.Name)'
+  #imageVersion: '$(Build.SourceBranchName)'
+  imageVersion: '0.1.0'
+
+stages:
+- stage: Compile Docker
+  displayName: Docker - Build and Push
+  jobs:
+    - job: CompilePush
+      displayName: Docker - Build and Push
+      steps:
+      - task: Docker@2
+        displayName: docker build
+        inputs:
+          containerRegistry: 'acr-arlepton'
+          repository: '$(imageRepo)/$(imageName)'
+          command: 'build'
+          Dockerfile: '**Dockerfile'
+          tags: '$(imageVersion)'
+      - task: Docker@2
+        displayName: docker push
+        inputs:
+          containerRegistry: 'acr-arlepton'
+          repository: '$(imageRepo)/$(imageName)'
+          command: 'push'
+          tags: '$(imageVersion)'
