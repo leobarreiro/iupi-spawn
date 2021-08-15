@@ -5,7 +5,7 @@ metadata:
   name: <%=artifactId%>
   labels:
     app: <%=artifactId%>
-    stack: spawn
+    stack: generator
 spec:
   selector:
     matchLabels:

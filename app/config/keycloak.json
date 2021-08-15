@@ -1,8 +1,8 @@
 {
-    "clientId": "spawn",
+    "clientId": "generator",
     "bearerOnly": true,
-    "serverUrl": "https://auth.iupi.io/auth/",
-    "realm": "iupi",
+    "serverUrl": "https://api.arlepton.com/auth/",
+    "realm": "arlepton",
     "credentials": {
         "secret": "7c1dc7bd-ad25-42e3-a600-125989afaf9f"
     }

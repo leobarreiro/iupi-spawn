@@ -5,7 +5,7 @@ metadata:
   name: <%=artifactId%>-ing
   labels:
     app: <%=artifactId%>
-    stack: spawn
+    stack: generator
 spec:
   rules:
   - host: <%=k8s.ingressHost%>

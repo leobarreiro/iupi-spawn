@@ -1,14 +1,17 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: spawn-keycloak-cm
+  name: generator-keycloak-cm
+  labels:
+    app: generator
+    group: arlepton
 data:
   keycloak.json: |-
     {
-        "clientId": "spawn",
+        "clientId": "generator",
         "bearerOnly": true,
-        "serverUrl": "https://auth.iupi.io/auth/",
-        "realm": "iupi",
+        "serverUrl": "https://api.arlepton.com/auth/",
+        "realm": "arlepton",
         "credentials": {
             "secret": "e7c060bc-a667-48f5-a5f9-e1f916982cc3"
         }

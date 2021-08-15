@@ -21,13 +21,13 @@ class PathsHelper {
             javaMain:       absoluteTemplatePath + "/src/main/java",
             resourceMain:   absoluteTemplatePath + "/src/main/resources",
             testMain:       absoluteTemplatePath + "/src/tests",
-            appMain:        absoluteTemplatePath + "/src/main/java/io/iupi/api", 
-            config:         absoluteTemplatePath + "/src/main/java/io/iupi/api/config",
-            model:          absoluteTemplatePath + "/src/main/java/io/iupi/api/model",
-            repository:     absoluteTemplatePath + "/src/main/java/io/iupi/api/repository",
-            amqp:           absoluteTemplatePath + "/src/main/java/io/iupi/api/amqp",
-            service:        absoluteTemplatePath + "/src/main/java/io/iupi/api/service",
-            controller:     absoluteTemplatePath + "/src/main/java/io/iupi/api/controller"
+            appMain:        absoluteTemplatePath + "/src/main/java/io/arlepton/api", 
+            config:         absoluteTemplatePath + "/src/main/java/io/arlepton/api/config",
+            model:          absoluteTemplatePath + "/src/main/java/io/arlepton/api/model",
+            repository:     absoluteTemplatePath + "/src/main/java/io/arlepton/api/repository",
+            amqp:           absoluteTemplatePath + "/src/main/java/io/arlepton/api/amqp",
+            service:        absoluteTemplatePath + "/src/main/java/io/arlepton/api/service",
+            controller:     absoluteTemplatePath + "/src/main/java/io/arlepton/api/controller"
         };
 
         this.dirs = {

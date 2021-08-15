@@ -1,1 +1,1 @@
-# spawn-templates
+# generator-templates

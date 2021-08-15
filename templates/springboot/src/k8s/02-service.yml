@@ -5,7 +5,7 @@ metadata:
   name: <%=artifactId%>-svc
   labels:
     app: <%=artifactId%>
-    stack: spawn
+    stack: generator
 spec:
   type: ClusterIP
   selector:

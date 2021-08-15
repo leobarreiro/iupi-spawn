@@ -1,8 +1,0 @@
-logging:
-  level:
-    root: INFO
-spring:
-  application:
-    name: dodabiba
-  banner:
-    location: classpath:bann.txt

@@ -2,11 +2,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: spawn
+  name: generator
+  labels:
+    app: generator
+    group: arlepton
 spec:
   type: ClusterIP
   selector:
-    app: spawn
+    app: generator
   ports:
     - port: 80
       targetPort: 3000

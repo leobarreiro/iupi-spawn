@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 const memoryStore = new session.MemoryStore();
 const mySession = session({
-    secret: 'iupi-spawn-secret',
+    secret: 'arlepton-generator-secret',
     resave: false,
     saveUninitialized: true,
     store: memoryStore
