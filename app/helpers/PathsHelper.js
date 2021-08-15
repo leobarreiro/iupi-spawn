@@ -6,10 +6,10 @@ class PathsHelper {
     constructor(oauthuser, config) {
         
         var absoluteMsPath = path.resolve(__dirname, "..", "..", pathConf.apiGeneratedDir, oauthuser, config.artifactId);
-        var absoluteTemplatePath = pathConf.springbootTemplatesDir;
+        var absoluteTemplatePath = path.resolve(__dirname, "..", "..", pathConf.springbootTemplatesDir);
         
         this.download = {
-            path: pathConf.apiDownloadsDir + "/" + oauthuser + "/",
+            path: path.resolve(__dirname, "..", "..", pathConf.apiDownloadsDir, oauthuser),
             fileName: config.artifactId + ".zip"
         };
         //this.downloadFile = pathConf.downloads + "/" + oauthuser + "/" + config.artifactId + ".zip";
@@ -21,13 +21,13 @@ class PathsHelper {
             javaMain:       absoluteTemplatePath + "/src/main/java",
             resourceMain:   absoluteTemplatePath + "/src/main/resources",
             testMain:       absoluteTemplatePath + "/src/tests",
-            appMain:        absoluteTemplatePath + "/src/main/java/io/arlepton/api", 
-            config:         absoluteTemplatePath + "/src/main/java/io/arlepton/api/config",
-            model:          absoluteTemplatePath + "/src/main/java/io/arlepton/api/model",
-            repository:     absoluteTemplatePath + "/src/main/java/io/arlepton/api/repository",
-            amqp:           absoluteTemplatePath + "/src/main/java/io/arlepton/api/amqp",
-            service:        absoluteTemplatePath + "/src/main/java/io/arlepton/api/service",
-            controller:     absoluteTemplatePath + "/src/main/java/io/arlepton/api/controller"
+            appMain:        absoluteTemplatePath + "/src/main/java/com/arlepton/api", 
+            config:         absoluteTemplatePath + "/src/main/java/com/arlepton/api/config",
+            model:          absoluteTemplatePath + "/src/main/java/com/arlepton/api/model",
+            repository:     absoluteTemplatePath + "/src/main/java/com/arlepton/api/repository",
+            amqp:           absoluteTemplatePath + "/src/main/java/com/arlepton/api/amqp",
+            service:        absoluteTemplatePath + "/src/main/java/com/arlepton/api/service",
+            controller:     absoluteTemplatePath + "/src/main/java/com/arlepton/api/controller"
         };
 
         this.dirs = {

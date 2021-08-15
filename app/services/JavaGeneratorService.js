@@ -1,5 +1,6 @@
 var fs = require("fs");
 var memFs = require("mem-fs");
+var path = require("path");
 var fsEditor = require("mem-fs-editor");
 const AdmZip = require("adm-zip");
 var PathsHelper = require("../helpers/PathsHelper");
@@ -20,7 +21,7 @@ class JavaGeneratorService {
             console.log("Generating zip file");
             zipFile.addLocalFolder(config.paths.dirs.root);
             fs.mkdirSync(config.paths.download.path, { recursive: true });
-            zipFile.writeZip(config.paths.download.path + "/" + config.paths.download.fileName);
+            zipFile.writeZip(config.paths.download.path, config.paths.download.fileName);
         });
 
         return {
@@ -48,11 +49,11 @@ class JavaGeneratorService {
     async _generateFonts(config) {
         return new Promise(resolve => {
             var editor = fsEditor.create(memFs.create());
-            editor.copyTpl(config.paths.templates.root + "/pom.xml", config.paths.dirs.root + "/pom.xml", config);
+            editor.copyTpl(path.resolve(config.paths.templates.root, "pom.xml"), path.resolve(config.paths.dirs.root, "pom.xml"), config);
             
-            editor.copyTpl(config.paths.templates.resourceMain + "/application.yml", config.paths.dirs.resourceMain + "/application.yml", config);
-            editor.copyTpl(config.paths.templates.resourceMain + "/application-dev.yml", config.paths.dirs.resourceMain + "/application-dev.yml", config);
-            editor.copyTpl(config.paths.templates.resourceMain + "/bootstrap.yml", config.paths.dirs.resourceMain + "/bootstrap.yml", config);
+            editor.copyTpl(path.resolve(config.paths.templates.resourceMain, "application.yml"), path.resolve(config.paths.dirs.resourceMain, "application.yml"), config);
+            editor.copyTpl(path.resolve(config.paths.templates.resourceMain, "application-dev.yml"), path.resolve(config.paths.dirs.resourceMain, "application-dev.yml"), config);
+            editor.copyTpl(path.resolve(config.paths.templates.resourceMain, "bootstrap.yml"), path.resolve(config.paths.dirs.resourceMain, "bootstrap.yml"), config);
             
             editor.copyTpl(config.paths.templates.appMain + "/ApiApplication.java", config.paths.dirs.appMain + "/ApiApplication.java", config);
             
