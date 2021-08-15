@@ -22,7 +22,7 @@ class ApiValidator {
 	}
 
 	isValidGroupId(value, errors) {
-		var pattern = /^[a-z]{2,}[\.]{1}([a-z]{2,}[\.]{1}){1,}[a-z]{1,}$/g;
+		var pattern = /^[a-z]{2,3}([\.]{1}[a-z]{2,3}){0,1}([\.]{1}[a-z]{1,}[a-z0-9]{1,}[_-]{0,1}[a-z0-9]{1,}){1,}$/g;
 		this.genericValidator.validateAgainstPattern("groupId", value, pattern, "must contain only lowercase letters (from a to z) and dots.", errors);
 	}
 
