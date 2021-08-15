@@ -5,13 +5,18 @@ ENV NODE_ENV $NODE_ENV
 
 ARG PORT=3000
 ENV PORT $PORT
-EXPOSE $PORT 9229 9230
-
-RUN npm install nodemon -g
-RUN mkdir /app
-WORKDIR /app
+EXPOSE 3000
 
 USER root
+
+RUN npm install nodemon -g
+RUN mkdir /app && mkdir /downloads && mkdir /generated && mkdir /templates
+
+WORKDIR /templates
+COPY ./templates .
+
+WORKDIR /app
+
 COPY package.json ./
 RUN npm install --silent 
 

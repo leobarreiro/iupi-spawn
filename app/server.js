@@ -23,8 +23,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.raw());
 
-app.use('/java', javaController);
-app.get('/', function(req, res) {
+app.use('/generator/java', javaController);
+app.get('/generator', function(req, res) {
     res.send("Server is up!");
 });
 
