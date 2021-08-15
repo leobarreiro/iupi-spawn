@@ -1,4 +1,7 @@
 trigger:
+  branches:
+    include:
+      - '*'
   tags:
     include:
       - '*'
@@ -14,7 +17,7 @@ variables:
   imageRepo: 'arlepton'
   imageName: '$(Build.Repository.Name)'
   #imageVersion: '$(Build.SourceBranchName)'
-  imageVersion: '0.1.0'
+  imageVersion: '0.2.0'
 
 stages:
 - stage: Compile Docker
