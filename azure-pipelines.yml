@@ -20,7 +20,7 @@ variables:
   imageVersion: '0.2.0'
 
 stages:
-- stage: Compile Docker
+- stage: Compile
   displayName: Docker - Build and Push
   jobs:
     - job: CompilePush
