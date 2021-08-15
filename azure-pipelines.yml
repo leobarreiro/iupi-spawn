@@ -17,11 +17,11 @@ variables:
   imageVersion: '0.1.0'
 
 stages:
-- stage: Compile
+- stage: Compile Docker
   displayName: Docker - Build and Push
   jobs:
     - job: CompilePush
-      displayName: Maven and Docker
+      displayName: Docker - Build and Push
       steps:
       - task: Docker@2
         displayName: docker build
