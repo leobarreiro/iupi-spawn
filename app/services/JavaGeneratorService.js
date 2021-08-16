@@ -19,9 +19,10 @@ class JavaGeneratorService {
         this._generateFonts(config).then(result => {
             const zipFile = new AdmZip();
             console.log("Generating zip file");
-            zipFile.addLocalFolder(config.paths.dirs.root);
+            zipFile.addLocalFolder(config.paths.dirs.root, config.paths.download.path);
             fs.mkdirSync(config.paths.download.path, { recursive: true });
-            zipFile.writeZip(config.paths.download.path, config.paths.download.fileName);
+            zipFile.writeZip(config.paths.download.path + "/" + config.paths.download.fileName);
+            console.log("File " + config.paths.download.fileName + " was created on folder " + config.paths.download.path);
         });
 
         return {
