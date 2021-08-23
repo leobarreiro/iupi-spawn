@@ -5,7 +5,7 @@ class KeycloakConfiguration {
     constructor(json) {
         this.genericValidator = new GenericValidator;
         if (json) {
-            this.usekeycloak = true;
+            this.useKeycloak = true;
             this.realm = json.realm;
             this.url = json.url;
             this.clientid = json.clientid;
@@ -16,7 +16,7 @@ class KeycloakConfiguration {
     }
 
     validate() {
-        if (this.usekeycloak === false || (this.realm != null && this.url != null && this.clientid != null && this.clientsecret != null)) {
+        if (this.useKeycloak === false || (this.realm != null && this.url != null && this.clientid != null && this.clientsecret != null)) {
             return null;
         } else {
             return { field: "keycloak", valid: false, message: "Please review your keycloak configuration" };
